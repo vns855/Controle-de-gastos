@@ -55,3 +55,21 @@ def test_remover_gasto_existente():
 def test_remover_gasto_inexistente():
     with pytest.raises(ValueError, match="Gasto não encontrado."):
         remover_gasto(999)
+
+def test_buscar_cotacao_dolar():
+    from unittest.mock import patch, Mock
+    mock_response = Mock()
+    mock_response.json.return_value = {
+        "USDBRL": {"bid": "5.25"}
+    }
+    with patch("src.app.requests.get", return_value=mock_response):
+        from src.app import buscar_cotacao_dolar
+        resultado = buscar_cotacao_dolar()
+        assert "Cotacao do dolar: R$" in resultado
+
+def test_buscar_cotacao_dolar_erro():
+    from unittest.mock import patch
+    with patch("src.app.requests.get", side_effect=Exception("erro")):
+        from src.app import buscar_cotacao_dolar
+        resultado = buscar_cotacao_dolar()
+        assert resultado == "Cotacao do dolar: indisponivel no momento."

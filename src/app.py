@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import requests
+
 DATA_FILE = Path("data/gastos.json")
 VERSION = "1.0.0"
 
@@ -47,8 +49,19 @@ def calcular_total() -> float:
     gastos = carregar_gastos()
     return sum(g["valor"] for g in gastos)
 
+def buscar_cotacao_dolar() -> str:
+    try:
+        url = "https://economia.awesomeapi.com.br/json/last/USD-BRL"
+        resposta = requests.get(url, timeout=5)
+        dados = resposta.json()
+        valor = float(dados["USDBRL"]["bid"])
+        return f"Cotacao do dolar: R$ {valor:.2f}"
+    except Exception:
+        return "Cotacao do dolar: indisponivel no momento."
+
 def exibir_menu() -> None:
     print("\n=== Controle de Gastos Pessoais ===")
+    print(buscar_cotacao_dolar())
     print("1. Adicionar gasto")
     print("2. Listar gastos")
     print("3. Remover gasto")
@@ -74,8 +87,9 @@ def main() -> None:
                     print("\n--- Lista de Gastos ---")
                     for gasto in gastos:
                         desc = gasto["descricao"]
-                    val = gasto["valor"]
-                    print(f'ID: {gasto["id"]} | {desc} | R$ {val:.2f}')
+                        val = gasto["valor"]
+                        print(f'ID: {gasto["id"]} | {desc} | R$ {val:.2f}')
+            elif opcao == "3":
                 gasto_id = int(input("Digite o ID do gasto a remover: "))
                 print(remover_gasto(gasto_id))
             elif opcao == "4":
