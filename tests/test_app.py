@@ -57,7 +57,7 @@ def test_remover_gasto_inexistente():
         remover_gasto(999)
 
 def test_buscar_cotacao_dolar():
-    from unittest.mock import patch, Mock
+    from unittest.mock import Mock, patch
     mock_response = Mock()
     mock_response.json.return_value = {
         "USDBRL": {"bid": "5.25"}
