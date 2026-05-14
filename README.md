@@ -16,16 +16,18 @@ Pessoas que buscam uma solucao tecnologica para gerenciar suas financas pessoais
 
 ## Funcionalidades
 
-- Registro e categorizacao de despesas e receitas
-- Validacao automatica de integridade de dados via scripts
-- Automacao de testes e padronizacao de codigo com GitHub Actions
-- Dashboard visual para acesso rapido e gerenciamento de informacoes
+- Adicionar, listar, remover e calcular gastos pessoais
+- Exibicao da cotacao do dolar em tempo real via API
+- Testes automatizados com pytest
+- Linting com ruff
+- CI com GitHub Actions
 
 ---
 
 ## Tecnologias Utilizadas
 
 - **Python 3.11+**: Linguagem base para processamento de dados
+- **Requests**: Consumo da API publica de cotacao do dolar (AwesomeAPI)
 - **Pytest**: Framework para execucao de testes automatizados
 - **Ruff**: Ferramenta de linting para garantir qualidade do codigo
 - **GitHub Actions**: Automacao de workflow e integracao continua (CI)
@@ -43,7 +45,7 @@ git clone https://github.com/vns855/Controle-de-gastos.git
 ### 2. Acesse a pasta do projeto
 
 ```bash
-cd controle-gastos-cli
+cd Controle-de-gastos
 ```
 
 ### 3. Instale as dependencias
@@ -76,8 +78,19 @@ uv run ruff check .
 
 ---
 
-## Versao e Autor
+## Evidencia de Funcionamento
 
-- **Versao:** 1.0.0
-- **Autor:** Vinicius Jorge
-- **Repositorio:** https://github.com/vns855/Controle-de-gastos
+```
+=== Controle de Gastos Pessoais ===
+Cotacao do dolar: R$ 5.25
+1. Adicionar gasto
+2. Listar gastos
+3. Remover gasto
+4. Mostrar total
+5. Mostrar versao
+0. Sair
+Escolha uma opcao: 1
+Descricao do gasto: Supermercado
+Valor do gasto: 100
+Gasto adicionado com sucesso.
+```
